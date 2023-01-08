@@ -1,4 +1,5 @@
-﻿using Code.Services.Interfaces;
+﻿using Assets.Code.ScriptableObjects;
+using Code.Services.Interfaces;
 
 namespace Code.Services
 {
