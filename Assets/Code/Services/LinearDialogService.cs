@@ -3,17 +3,20 @@ using Assets.Code.ScriptableObjects;
 using Code.Services.Interfaces;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.Services
 {
     public class LinearDialogService : ILinearDialogService
     {
         private readonly TMP_Text _text;
+        private readonly Image _image;
         private Queue<SOSentence> _sentences;
 
-        public LinearDialogService(TMP_Text text)
+        public LinearDialogService(TMP_Text text, Image image)
         {
             _text = text;
+            _image = image;
         }
         
         public void StartDialog(SOLinerDialogue soLinerDialogue)
@@ -24,6 +27,8 @@ namespace Code.Services
             {
                 _sentences.Enqueue(sentence);
             }
+            
+            NextSentences();
         }
 
         public void NextSentences()
@@ -54,6 +59,7 @@ namespace Code.Services
         private void UpdateVisual(SOSentence sentence)
         {
             _text.text = sentence.Sentence;
+            _image.sprite = sentence.Sprites[0];
             Debug.Log(sentence);
         }
     }
