@@ -1,4 +1,5 @@
-﻿using Code.Services.Interfaces;
+﻿using Assets.Code.ScriptableObjects;
+using Code.Services.Interfaces;
 using UnityEngine;
 
 namespace Code.Services
@@ -12,9 +13,9 @@ namespace Code.Services
             _linearDialogService = linearDialogService;
         }
         
-        public void LoadDialog() // put SO
+        public void LoadDialog(SOLinerDialogue soLinerDialogue)
         {
-            _linearDialogService.StartDialog(); // put SO
+            _linearDialogService.StartDialog(soLinerDialogue);
         }
     }
 }
