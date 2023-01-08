@@ -2,10 +2,12 @@
 
 namespace Assets.Code.ScriptableObjects
 {
-    public class SOSentence : ScriptableObject
+    [System.Serializable]
+    public class SOSentence
     {
         public string Name;
-        public string Sentence;
-        public SOBackgroundData BackgroundData;
+        [TextArea(3, 10)] public string Sentence;
+        public Sprite[] Sprites;
+        public AudioClip AudioClip;
     }
 }
