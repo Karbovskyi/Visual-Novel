@@ -16,7 +16,7 @@ namespace Code
     
         private void Start()
         {
-            ILinearDialogService linearDialogService = new LinearDialogService(_text, _image);
+            ILinearDialogService linearDialogService = new LinearDialogService(_text, _image,this);
             IMainStoryService mainStoryService = new MainStoryService(linearDialogService);
             
             _button.onClick.AddListener(linearDialogService.NextSentences);
