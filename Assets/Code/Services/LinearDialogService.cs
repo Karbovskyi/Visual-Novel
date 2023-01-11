@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Code.ScriptableObjects;
 using Code.Services.Interfaces;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,25 +8,16 @@ namespace Code.Services
 {
     public class LinearDialogService : ILinearDialogService
     {
-        private readonly TMP_Text _text;
+        private readonly ITextWritingService _textWritingService;
         private readonly Image _image;
-        private readonly Bootstrap _bootstrap;
         private Queue<SOSentence> _sentences;
-        private State _state = State.Completed;
 
-        private enum State
+        public LinearDialogService(ITextWritingService textWritingService, Image image)
         {
-            Playing,
-            Completed
-        }
-
-        public LinearDialogService(TMP_Text text, Image image, Bootstrap bootstrap)
-        {
-            _text = text;
+            _textWritingService = textWritingService;
             _image = image;
-            _bootstrap = bootstrap;
         }
-
+        
         public void StartDialog(SOLinerDialogue soLinerDialogue)
         {
             _sentences = new Queue<SOSentence>();
@@ -38,11 +26,24 @@ namespace Code.Services
             {
                 _sentences.Enqueue(sentence);
             }
-
+            
             NextSentences();
         }
 
-        public void NextSentences()
+        public void TryShowNextSentence()
+        {
+            if (_textWritingService.TrySkipTyping())
+            {
+                
+            }
+            else
+            {
+                NextSentences();
+            }
+        }
+
+
+        private void NextSentences()
         {
             if (TryGetNextSentence(out SOSentence sentence))
                 UpdateVisual(sentence);
@@ -69,28 +70,9 @@ namespace Code.Services
 
         private void UpdateVisual(SOSentence sentence)
         {
-            _bootstrap.StartCoroutine(TypeText(sentence.Sentence));
+            _textWritingService.TypeText(sentence.Sentence);
             _image.sprite = sentence.Sprites[0];
             Debug.Log(sentence);
-        }
-
-        private IEnumerator TypeText(string text)
-        {
-            _state = State.Playing;
-            _text.text = String.Empty;
-            int wordIndex = 0;
-            
-            while (_state != State.Completed)
-            {
-                _text.text += text[wordIndex];
-                
-                yield return new WaitForSeconds(0.05f);
-                
-                if (++wordIndex >= text.Length)
-                {
-                    _state = State.Completed;
-                }
-            }
         }
     }
 }

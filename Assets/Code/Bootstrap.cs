@@ -16,10 +16,11 @@ namespace Code
     
         private void Start()
         {
-            ILinearDialogService linearDialogService = new LinearDialogService(_text, _image,this);
+            ITextWritingService textWritingService = new TextWritingService1(this, _text);
+            ILinearDialogService linearDialogService = new LinearDialogService(textWritingService, _image);
             IMainStoryService mainStoryService = new MainStoryService(linearDialogService);
             
-            _button.onClick.AddListener(linearDialogService.NextSentences);
+            _button.onClick.AddListener(linearDialogService.TryShowNextSentence);
         
             mainStoryService.LoadDialog(_soLinerDialogue);
         }
