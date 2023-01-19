@@ -70,7 +70,7 @@ namespace Code.Services
 
         private void UpdateVisual(SOSentence sentence)
         {
-            _textWritingService.TypeText(sentence.Sentence);
+           // _textWritingService.TypeText(sentence.Sentence);
             _image.sprite = sentence.Sprites[0];
             Debug.Log(sentence);
         }

@@ -16,13 +16,19 @@ namespace Code
     
         private void Start()
         {
-            ITextWritingService textWritingService = new TextWritingService1(this, _text);
-            ILinearDialogService linearDialogService = new LinearDialogService(textWritingService, _image);
-            IMainStoryService mainStoryService = new MainStoryService(linearDialogService);
+            AllServices services = AllServices.Container;
             
-            _button.onClick.AddListener(linearDialogService.TryShowNextSentence);
+            
+           // ITextWritingService textWritingService = new TextWritingService1(this, _text);
+           // ILinearDialogService linearDialogService = new LinearDialogService(textWritingService, _image);
+            //IMainStoryService mainStoryService = new MainStoryService(linearDialogService);
+            
+           // _button.onClick.AddListener(linearDialogService.TryShowNextSentence);
         
-            mainStoryService.LoadDialog(_soLinerDialogue);
+           // mainStoryService.LoadDialog(_soLinerDialogue);
+            
+           // services.RegisterSingle<ITextWritingService>(textWritingService);
+            
         }
     }
 }

@@ -7,27 +7,25 @@ using UnityEngine;
 public class TextWritingService1 : ITextWritingService
 {
     private readonly MonoBehaviour _coroutineRunner;
-    private readonly TMP_Text _text;
     private State _state = State.Completed;
     private bool _isNeedSkipWriting;
 
-    public TextWritingService1(MonoBehaviour coroutineRunner , TMP_Text text)
+    public TextWritingService1(MonoBehaviour coroutineRunner)
     {
         _coroutineRunner = coroutineRunner;
-        _text = text;
     }
 
-    public void TypeText(string message) => 
-        _coroutineRunner.StartCoroutine(WriteText(message));
+    public void TypeText(string message, TMP_Text text) => 
+        _coroutineRunner.StartCoroutine(WriteText(message, text));
 
     public bool TrySkipTyping() => 
         _isNeedSkipWriting = _state == State.Playing;
 
-    private IEnumerator WriteText(string message)
+    private IEnumerator WriteText(string message, TMP_Text text)
     {
         _isNeedSkipWriting = false;
         _state = State.Playing;
-        _text.text = String.Empty;
+        text.text = String.Empty;
         int wordIndex = 0;
 
         while (_state != State.Completed)
@@ -35,11 +33,11 @@ public class TextWritingService1 : ITextWritingService
             char letter = message[wordIndex];
             wordIndex++;
             
-            _text.text += letter;
+            text.text += letter;
 
             if (_isNeedSkipWriting)
             {
-                _text.text += message.Substring(wordIndex);
+                text.text += message.Substring(wordIndex);
                 _state = State.Completed;
             }
             else
