@@ -11,6 +11,7 @@ namespace Code
     {
         [SerializeField] private StoryBlock _introBlock;
         [SerializeField] private AudioService _audio; 
+        [SerializeField] private Button _tryForceScipButton; 
         
         private LinearStepsService _linearStepsService;
         private ITextWritingService _textWritingService;
@@ -28,14 +29,8 @@ namespace Code
             services.RegisterSingle<IAudioService>(_audio);
             
             _introBlock.StartBlock();
-        }
-        
-        private void Update()
-        {
-            if (Input.GetMouseButtonUp(0))
-            {
-                _linearStepsService.TryForceStepComplete();
-            }
+            
+            _tryForceScipButton.onClick.AddListener(_linearStepsService.TryForceStepComplete);
         }
     }
 }

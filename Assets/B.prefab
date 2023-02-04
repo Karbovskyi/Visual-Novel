@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 7728727779681579516}
   - component: {fileID: 1315258021250797204}
   m_Layer: 0
-  m_Name: Intro (2)
+  m_Name: B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 8758633705317861228}
-  _text: {fileID: 0}
+  _text: {fileID: 8934354217805042523}
 --- !u!1 &4260624930279665168
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,8 +798,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.07564971, g: 0.6782034, b: 0.9433962, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -920,7 +920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 429541059725854982}
-  _text: {fileID: 0}
+  _text: {fileID: 6863040169683415633}
 --- !u!114 &1739779940240221464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -935,7 +935,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 429541059725854982}
   _text: {fileID: 6863040169683415633}
-  _audioService: {fileID: 1315258021250797204}
 --- !u!1 &5477171232308628305
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,7 +1302,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7728727779681579516}
         m_TargetAssemblyTypeName: StoryBlock, Assembly-CSharp
-        m_MethodName: LoadBlock
+        m_MethodName: SetNextBlock
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1514,7 +1513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 6425878388657155449}
-  _text: {fileID: 0}
+  _text: {fileID: 5469240312969368929}
 --- !u!1 &8381765394941176561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,7 +1695,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7728727779681579516}
         m_TargetAssemblyTypeName: StoryBlock, Assembly-CSharp
-        m_MethodName: LoadBlock
+        m_MethodName: SetNextBlock
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

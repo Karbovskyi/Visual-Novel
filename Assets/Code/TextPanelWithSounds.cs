@@ -25,7 +25,7 @@ public class TextPanelWithSounds : MonoBehaviour
     private bool _isTypingText;
 
 
-    private void Start()
+    private void Awake()
     {
         _canvasGroup.alpha = 0;
     }

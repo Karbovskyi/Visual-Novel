@@ -641,7 +641,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3175709038087613638}
         m_TargetAssemblyTypeName: StoryBlock, Assembly-CSharp
-        m_MethodName: LoadBlock
+        m_MethodName: SetNextBlock
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 1920082805437774539}
   - component: {fileID: 3175709038087613638}
   m_Layer: 0
-  m_Name: Intro (1)
+  m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1787,7 +1787,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3175709038087613638}
         m_TargetAssemblyTypeName: StoryBlock, Assembly-CSharp
-        m_MethodName: LoadBlock
+        m_MethodName: SetNextBlock
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1884,8 +1884,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.07289071, g: 0.735849, b: 0.15294068, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

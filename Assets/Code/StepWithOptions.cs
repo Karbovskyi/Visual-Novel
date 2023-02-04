@@ -1,4 +1,5 @@
 ﻿using Assets.Code;
+using DG.Tweening;
 using UnityEngine;
 
 public class StepWithOptions : MonoBehaviour, IStep
@@ -31,8 +32,9 @@ public class StepWithOptions : MonoBehaviour, IStep
     
     private void CompleteStep()
     {
+        Debug.Log("Complete Step " + transform.parent.gameObject.name);
         _isCompleted = true;
-        _textPanel.OnPanelDone -= CompleteStep;
+        Destroy( transform.parent.gameObject);
     }
     
     public void ForceComplete()
@@ -46,8 +48,17 @@ public class StepWithOptions : MonoBehaviour, IStep
 
     public void FinishStep()
     {
+        Debug.Log("FinishStep " + transform.parent.gameObject.name);
         _textPanel.HidePanel();
+        
+        foreach (VariantButton button in _variantButtons)
+        {
+            button.Hide();
+        }
+        
         _isFinished = true;
+
+        DOVirtual.DelayedCall(1.5f, CompleteStep);
     }
     
     public bool IsCompleted()

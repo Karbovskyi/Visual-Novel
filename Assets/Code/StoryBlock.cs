@@ -3,19 +3,27 @@ using UnityEngine;
 
 public class StoryBlock : MonoBehaviour
 {
-    [SerializeField] private LinearStepsService _linearStepsService;
     [SerializeField] private StoryBlock[] nextBlocks;
-    
+    private int _nextBlockIndex = 0;
+    private LinearStepsService _linearStepsService;
+
     public void StartBlock()
     {
         IStep[] x = GetComponentsInChildren<IStep>();
-        LinearStepsService linearStepsService = AllServices.Container.Single<LinearStepsService>();
-        linearStepsService.SetSteps(x);
+        _linearStepsService = AllServices.Container.Single<LinearStepsService>();
+        _linearStepsService.SetSteps(this ,x);
     }
-    public void LoadBlock(int index = 0)
+    public void SetNextBlock(int index = 0)
     {
-        var newBlock=Instantiate(nextBlocks[index]);
+        _nextBlockIndex = index;
+        FinishBlock();
+    }
+
+    public void FinishBlock()
+    {
+        
+        StoryBlock newBlock = Instantiate(nextBlocks[_nextBlockIndex]);
+        Debug.Log("Start New Block " + newBlock.gameObject.name);
         newBlock.StartBlock();
-        Destroy(gameObject);
     }
 }

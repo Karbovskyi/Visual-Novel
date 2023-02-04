@@ -18,7 +18,7 @@ public class TextPanel : MonoBehaviour
     private string _message;
     private bool _isTypingText;
     
-    private void Start()
+    private void Awake()
     {
         _canvasGroup.alpha = 0;
     }

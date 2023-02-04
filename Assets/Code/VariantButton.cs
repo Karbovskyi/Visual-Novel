@@ -32,5 +32,10 @@ namespace Assets.Code
                 textWritingService.ShowText(_message, Text);
             }));
         }
+        
+        public void Hide()
+        {
+            _canvasGroup.DOFade(0, 1);
+        }
     }
 }
