@@ -18,7 +18,12 @@ public class TextWritingService1 : ITextWritingService
 
     public TextWritingService1(MonoBehaviour coroutineRunner) => 
         _coroutineRunner = coroutineRunner;
-    
+
+    public void TypeText(string message, TMP_Text text, bool appendText = false)
+    {
+        StartTyping(message, text, appendText);
+    }
+
     public void ShowText(string message, TMP_Text text, bool appendText = false)
     {
         if (_typingCoroutine != null)
@@ -42,14 +47,19 @@ public class TextWritingService1 : ITextWritingService
 
     public void TypeText(string message, TMP_Text text, Action onComplete, bool appendText = false)
     {
+        _onComplete = onComplete;
+        StartTyping(message, text, appendText);
+    }
+
+    private void StartTyping(string message, TMP_Text text, bool appendText)
+    {
         _wordIndex = 0;
         _message = message;
         _text = text;
-        _onComplete = onComplete;
 
-        if(!appendText)
+        if (!appendText)
             _text.text = String.Empty;
-        
+
         _typingCoroutine = _coroutineRunner.StartCoroutine(WriteText());
     }
 
@@ -78,7 +88,7 @@ public class TextWritingService1 : ITextWritingService
             CheckMessageEnd();
         }
         
-        _onComplete.Invoke();
+        _onComplete?.Invoke();
     }
 
     private void CheckMessageEnd()

@@ -15,8 +15,7 @@ public class TextPanelWithSounds : MonoBehaviour
     
     private TweenerCore<float, float, FloatOptions> _showing;
     private ITextWritingService _textWritingService;
-    [SerializeField] private AudioService _audioService;
-    //private IAudioService _audioService;
+    private IAudioService _audioService;
     private AudioClip[] _audioClips;
     
     
@@ -33,6 +32,7 @@ public class TextPanelWithSounds : MonoBehaviour
 
     public void ShowPanel(string[] message, AudioClip[] audioClips, ITextWritingService textWritingService)
     {
+        _audioService = AllServices.Container.Single<IAudioService>();
         _text.text = String.Empty;
         _audioClips = audioClips;
         _textWritingService = textWritingService;

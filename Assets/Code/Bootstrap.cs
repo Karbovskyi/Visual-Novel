@@ -10,6 +10,7 @@ namespace Code
     public class Bootstrap : MonoBehaviour
     {
         [SerializeField] private StoryBlock _introBlock;
+        [SerializeField] private AudioService _audio; 
         
         private LinearStepsService _linearStepsService;
         private ITextWritingService _textWritingService;
@@ -24,6 +25,7 @@ namespace Code
             
             services.RegisterSingle<ITextWritingService>(_textWritingService);
             services.RegisterSingle<LinearStepsService>(_linearStepsService);
+            services.RegisterSingle<IAudioService>(_audio);
             
             _introBlock.StartBlock();
         }

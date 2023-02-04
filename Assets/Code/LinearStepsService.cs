@@ -15,6 +15,7 @@ public class LinearStepsService : IService
             _steps.Enqueue(step);
         
         StartPlaySteps();
+        Debug.Log("NewBlock");
     }
 
     public void TryForceStepComplete()

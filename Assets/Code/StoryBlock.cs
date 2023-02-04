@@ -4,17 +4,18 @@ using UnityEngine;
 public class StoryBlock : MonoBehaviour
 {
     [SerializeField] private LinearStepsService _linearStepsService;
-    [SerializeField] private GameObject[] nextBlocks;
+    [SerializeField] private StoryBlock[] nextBlocks;
     
-    private void Start()
+    public void StartBlock()
     {
         IStep[] x = GetComponentsInChildren<IStep>();
-        _linearStepsService.SetSteps(x);
+        LinearStepsService linearStepsService = AllServices.Container.Single<LinearStepsService>();
+        linearStepsService.SetSteps(x);
     }
-
     public void LoadBlock(int index = 0)
     {
-        Instantiate(nextBlocks[index]);
-        Destroy(this);
+        var newBlock=Instantiate(nextBlocks[index]);
+        newBlock.StartBlock();
+        Destroy(gameObject);
     }
 }

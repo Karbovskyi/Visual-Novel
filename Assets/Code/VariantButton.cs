@@ -29,7 +29,7 @@ namespace Assets.Code
         
             _showing =  _canvasGroup.DOFade(1, 1).OnComplete((() =>
             {
-                textWritingService.TypeText(_message, Text);
+                textWritingService.ShowText(_message, Text);
             }));
         }
     }

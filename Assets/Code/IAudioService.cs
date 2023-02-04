@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IAudioService
+public interface IAudioService:IService
 {
     void PlayAudio(AudioClip audioClip);
 }

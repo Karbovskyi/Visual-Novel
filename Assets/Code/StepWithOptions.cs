@@ -16,7 +16,23 @@ public class StepWithOptions : MonoBehaviour, IStep
     {
         _textService = AllServices.Container.Single<ITextWritingService>();
         _textPanel.ShowPanel(_message, _textService);
-        Debug.Log("4");
+        _textPanel.OnPanelDone += ShowVariants;
+    }
+
+    private void ShowVariants()
+    {
+        _textPanel.OnPanelDone -= ShowVariants;
+
+        foreach (var button in _variantButtons)
+        {
+            button.Show(_textService);
+        }
+    }
+    
+    private void CompleteStep()
+    {
+        _isCompleted = true;
+        _textPanel.OnPanelDone -= CompleteStep;
     }
     
     public void ForceComplete()
