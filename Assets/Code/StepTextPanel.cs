@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class Step1 : MonoBehaviour, IStep
+public class StepTextPanel : MonoBehaviour, IStep
 {
     [SerializeField] private bool _isCanBeForceCompleted;
     [SerializeField] private string _message;
@@ -15,7 +15,13 @@ public class Step1 : MonoBehaviour, IStep
     {
         _textService = AllServices.Container.Single<ITextWritingService>();
         _textPanel.ShowPanel(_message, _textService);
-        Debug.Log("4");
+        _textPanel.OnPanelDone += CompleteStep;
+    }
+
+    private void CompleteStep()
+    {
+        _isCompleted = true;
+        _textPanel.OnPanelDone -= CompleteStep;
     }
     
     public void ForceComplete()

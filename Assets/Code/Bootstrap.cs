@@ -9,26 +9,31 @@ namespace Code
 {
     public class Bootstrap : MonoBehaviour
     {
-        [SerializeField] private SOLinerDialogue _soLinerDialogue;
-        [SerializeField] private TMP_Text _text;
-        [SerializeField] private Button _button;
-        [SerializeField] private Image _image;
+        [SerializeField] private StoryBlock _introBlock;
+        
+        private LinearStepsService _linearStepsService;
+        private ITextWritingService _textWritingService;
+        
     
         private void Start()
         {
             AllServices services = AllServices.Container;
             
+            _textWritingService = new TextWritingService1(this);
+            _linearStepsService = new LinearStepsService();
             
-           // ITextWritingService textWritingService = new TextWritingService1(this, _text);
-           // ILinearDialogService linearDialogService = new LinearDialogService(textWritingService, _image);
-            //IMainStoryService mainStoryService = new MainStoryService(linearDialogService);
+            services.RegisterSingle<ITextWritingService>(_textWritingService);
+            services.RegisterSingle<LinearStepsService>(_linearStepsService);
             
-           // _button.onClick.AddListener(linearDialogService.TryShowNextSentence);
+            _introBlock.StartBlock();
+        }
         
-           // mainStoryService.LoadDialog(_soLinerDialogue);
-            
-           // services.RegisterSingle<ITextWritingService>(textWritingService);
-            
+        private void Update()
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                _linearStepsService.TryForceStepComplete();
+            }
         }
     }
 }
