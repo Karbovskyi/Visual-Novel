@@ -1,56 +1,90 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class TextWritingService1 : ITextWritingService
 {
     private readonly MonoBehaviour _coroutineRunner;
-    private State _state = State.Completed;
+    public State TypingState = State.Completed;
     private bool _isNeedSkipWriting;
+    private Action _onComplete;
+    private Coroutine _typingCoroutine;
+    
+    
+    private int _wordIndex;
+    private string _message;
+    private TMP_Text _text;
 
-    public TextWritingService1(MonoBehaviour coroutineRunner)
-    {
+    public TextWritingService1(MonoBehaviour coroutineRunner) => 
         _coroutineRunner = coroutineRunner;
-    }
-
-    public void TypeText(string message, TMP_Text text) => 
-        _coroutineRunner.StartCoroutine(WriteText(message, text));
-
-    public bool TrySkipTyping() => 
-        _isNeedSkipWriting = _state == State.Playing;
-
-    private IEnumerator WriteText(string message, TMP_Text text)
+    
+    public void ShowText(string message, TMP_Text text, bool appendText = false)
     {
-        _isNeedSkipWriting = false;
-        _state = State.Playing;
-        text.text = String.Empty;
-        int wordIndex = 0;
-
-        while (_state != State.Completed)
+        if (_typingCoroutine != null)
         {
-            char letter = message[wordIndex];
-            wordIndex++;
-            
-            text.text += letter;
-
-            if (_isNeedSkipWriting)
-            {
-                text.text += message.Substring(wordIndex);
-                _state = State.Completed;
-            }
-            else
-            {
-                yield return new WaitForSeconds(GetTimeToWait(letter));
-                CheckMessageEnd(message.Length, wordIndex);
-            }
+            _coroutineRunner.StopCoroutine(_typingCoroutine);
         }
+        
+        _message = message;
+        _text = text;
+
+        if (appendText)
+        {
+            _text.text += _message;
+        }
+        else
+        {
+            _text.text = _message;
+        }
+        
     }
 
-    private void CheckMessageEnd(int length, int wordIndex)
+    public void TypeText(string message, TMP_Text text, Action onComplete, bool appendText = false)
     {
-        if (wordIndex >= length) _state = State.Completed;
+        _wordIndex = 0;
+        _message = message;
+        _text = text;
+        _onComplete = onComplete;
+
+        if(!appendText)
+            _text.text = String.Empty;
+        
+        _typingCoroutine = _coroutineRunner.StartCoroutine(WriteText());
+    }
+
+    public void SkipTyping()
+    {
+        if(TypingState == State.Completed) return;
+
+        TypingState = State.Completed;
+        _text.text += _message.Substring(_wordIndex);
+        _coroutineRunner.StopCoroutine(_typingCoroutine);
+        _onComplete.Invoke();
+    }
+
+    private IEnumerator WriteText()
+    {
+        TypingState = State.Playing;
+        
+        while (TypingState != State.Completed)
+        {
+            char letter = _message[_wordIndex];
+            _wordIndex++;
+            
+            _text.text += letter;
+            
+            yield return new WaitForSeconds(GetTimeToWait(letter));
+            CheckMessageEnd();
+        }
+        
+        _onComplete.Invoke();
+    }
+
+    private void CheckMessageEnd()
+    {
+        if (_wordIndex >= _message.Length) 
+            TypingState = State.Completed;
     }
 
     private static float GetTimeToWait(char letter)
@@ -75,7 +109,7 @@ public class TextWritingService1 : ITextWritingService
     }
 
 
-    private enum State
+    public enum State
     {
         Playing = 0,
         Completed = 1

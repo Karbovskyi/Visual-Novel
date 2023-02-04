@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class StoryBlock : MonoBehaviour
 {
-    [SerializeField] private LinearStepsService _linearStepsService;
-    
-    private void Start()
+    public void StartBlock()
     {
         IStep[] x = GetComponentsInChildren<IStep>();
-        _linearStepsService.SetSteps(x);
+        LinearStepsService linearStepsService = AllServices.Container.Single<LinearStepsService>();
+        linearStepsService.SetSteps(x);
     }
 }
