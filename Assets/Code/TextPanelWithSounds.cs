@@ -18,7 +18,6 @@ public class TextPanelWithSounds : MonoBehaviour
     private IAudioService _audioService;
     private AudioClip[] _audioClips;
     
-    
     private string[] _message;
     private int _i;
     
