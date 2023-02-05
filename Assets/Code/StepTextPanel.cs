@@ -4,8 +4,10 @@ using UnityEngine;
 public class StepTextPanel : MonoBehaviour, IStep
 {
     [SerializeField] private bool _isCanBeForceCompleted;
+    [TextArea(3,10)]
     [SerializeField] private string _message;
     [SerializeField] private TextPanel _textPanel;
+    [SerializeField] private bool _hideOnComplete;
 
     private ITextWritingService _textService;
     private bool _isFinished;
@@ -35,7 +37,9 @@ public class StepTextPanel : MonoBehaviour, IStep
 
     public void FinishStep()
     {
-        _textPanel.HidePanel();
+        if(_hideOnComplete)
+            _textPanel.HidePanel();
+        
         _isFinished = true;
     }
     

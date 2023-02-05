@@ -5,6 +5,7 @@ using UnityEngine;
 public class StepWithOptions : MonoBehaviour, IStep
 {
     [SerializeField] private bool _isCanBeForceCompleted;
+    [TextArea(3,10)]
     [SerializeField] private string _message;
     [SerializeField] private TextPanel _textPanel;
     [SerializeField] private VariantButton[] _variantButtons;
