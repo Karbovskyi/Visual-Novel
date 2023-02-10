@@ -9,6 +9,8 @@ public class StepWithOptions : MonoBehaviour, IStep
     [SerializeField] private string _message;
     [SerializeField] private TextPanel _textPanel;
     [SerializeField] private VariantButton[] _variantButtons;
+    [SerializeField] private bool _continueTyping;
+
 
     private ITextWritingService _textService;
     private bool _isFinished;
@@ -17,7 +19,7 @@ public class StepWithOptions : MonoBehaviour, IStep
     public void StartStep(LinearStepsService linearStepsService)
     {
         _textService = AllServices.Container.Single<ITextWritingService>();
-        _textPanel.ShowPanel(_message, _textService);
+        _textPanel.ShowPanel(_message, _textService,_continueTyping);
         _textPanel.OnPanelDone += ShowVariants;
     }
 

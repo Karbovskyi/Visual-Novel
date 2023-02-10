@@ -2,20 +2,7 @@
 
 public class StepTextPanelWithSounds : MonoBehaviour
 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    [SerializeField] private bool _isCanBeForceCompleted;
-    [TextArea(3,10)]
-    [SerializeField] private string[] _message;
-    [SerializeField] private AudioClip[] _audioClips;
-    [SerializeField] private TextPanelWithSounds _textPanel;
-<<<<<<< HEAD
-    [SerializeField] private bool _hideOnComplete;
 
-=======
-=======
-=======
->>>>>>> Stashed changes
 }
 /*, IStep
 {

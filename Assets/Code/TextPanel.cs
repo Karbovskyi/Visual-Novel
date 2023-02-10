@@ -17,14 +17,16 @@ public class TextPanel : MonoBehaviour
     
     private string _message;
     private bool _isForceCompleted;
-    
+    private bool _continueTyping;
+
     private void Awake()
     {
         _canvasGroup.alpha = 0;
     }
 
-    public void ShowPanel(string message, ITextWritingService textWritingService)
+    public void ShowPanel(string message, ITextWritingService textWritingService, bool continueTyping)
     {
+        _continueTyping = continueTyping;
         _text.text = String.Empty;
             _isForceCompleted = false;
         _textWritingService = textWritingService;
@@ -64,6 +66,6 @@ public class TextPanel : MonoBehaviour
 
     private void StartTyping()
     {
-        _textWritingService.TypeText(_message, _text, OnPanelDone);
+        _textWritingService.TypeText(_message, _text, OnPanelDone,_continueTyping);
     }
 }

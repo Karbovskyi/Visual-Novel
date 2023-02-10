@@ -8,19 +8,13 @@ public class StepTextPanel : MonoBehaviour, IStep
     [TextArea(3,10)]
     [SerializeField] private string _message;
     [SerializeField] private TextPanel _textPanel;
-<<<<<<< HEAD
+
     [SerializeField] private bool _hideOnComplete;
-=======
-<<<<<<< Updated upstream
-=======
-    [SerializeField] private bool _hideOnComplete;
+    [SerializeField] private bool _continueTyping;
+
     [SerializeField] private bool _autoNextStep;
      private bool _isDone;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
->>>>>>> feature/valerii
+
 
     private ITextWritingService _textService;
     private bool _isClosed;
@@ -35,7 +29,7 @@ public class StepTextPanel : MonoBehaviour, IStep
         _onComplete += _linearStepsService.NextStep;
         
         _textService = AllServices.Container.Single<ITextWritingService>();
-        _textPanel.ShowPanel(_message, _textService);
+        _textPanel.ShowPanel(_message, _textService,_continueTyping);
         _textPanel.OnPanelDone += CompleteStep;
     }
 
@@ -58,30 +52,17 @@ public class StepTextPanel : MonoBehaviour, IStep
     {
         if (_isCanBeForceCompleted)
         {
+            _autoNextStep = false;
             _textPanel.ForceComplete();
         }
     }
 
     public void CloseStep()
     {
-<<<<<<< HEAD
-        if(_hideOnComplete)
-            _textPanel.HidePanel();
-        
-=======
-<<<<<<< Updated upstream
-        _textPanel.HidePanel();
->>>>>>> feature/valerii
-        _isFinished = true;
-=======
         if(_hideOnComplete)
             _textPanel.HidePanel();
         
         _isClosed = true;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     }
     
     public bool IsCompleted()

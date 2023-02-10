@@ -19,6 +19,7 @@ public class StepAction : MonoBehaviour, IStep
     
     public void StartStep(LinearStepsService linearStepsService)
     {
+        Debug.Log("StartStep");
         _linearStepsService = linearStepsService;
         _onComplete += _linearStepsService.NextStep;
         _action.Invoke(CompleteStep);
@@ -26,6 +27,7 @@ public class StepAction : MonoBehaviour, IStep
 
     private void CompleteStep()
     {
+        Debug.Log("CompleteStep");
         _isCompleted = true;
         _onComplete.Invoke();
         _onComplete -= _linearStepsService.NextStep;
