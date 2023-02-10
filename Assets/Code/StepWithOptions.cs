@@ -13,7 +13,7 @@ public class StepWithOptions : MonoBehaviour, IStep
     private bool _isFinished;
     private bool _isCompleted;
     
-    public void StartStep()
+    public void StartStep(LinearStepsService linearStepsService)
     {
         _textService = AllServices.Container.Single<ITextWritingService>();
         _textPanel.ShowPanel(_message, _textService);
@@ -46,7 +46,7 @@ public class StepWithOptions : MonoBehaviour, IStep
         }
     }
 
-    public void FinishStep()
+    public void CloseStep()
     {
         Debug.Log("FinishStep " + transform.parent.gameObject.name);
         _textPanel.HidePanel();

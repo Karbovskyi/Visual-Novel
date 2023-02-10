@@ -1,9 +1,9 @@
 ﻿public interface IStep
 {
-    public void StartStep();
+    public void StartStep(LinearStepsService linearStepsService);
 
     public void ForceComplete();
-    public void FinishStep();
+    public void CloseStep();
     public bool IsCompleted();
     
     public bool IsCanBeForceCompleted();
