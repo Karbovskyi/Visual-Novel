@@ -1,7 +1,3 @@
-using Assets.Code.ScriptableObjects;
-using Code.Services;
-using Code.Services.Interfaces;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

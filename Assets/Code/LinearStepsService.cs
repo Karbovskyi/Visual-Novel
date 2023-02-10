@@ -22,7 +22,6 @@ public class LinearStepsService : IService
 
     public void TryForceStepComplete()
     {
-        Debug.Log("Try Force Complete " + _storyBlock.gameObject.name);
         if (_currentStep.IsCanBeForceCompleted())
         {
             if (_currentStep.IsCompleted())
@@ -45,8 +44,8 @@ public class LinearStepsService : IService
     {
         if (TryGetNextStep(out IStep step))
         {
-            Debug.Log("Start Next Step "  + _storyBlock.gameObject.name );
-            step.StartStep();
+            //Debug.Log("Start Next Step 1 "  + _storyBlock.gameObject.name );
+            step.StartStep(this);
         }
         else
         {
@@ -58,11 +57,10 @@ public class LinearStepsService : IService
 
     private bool TryGetNextStep(out IStep step)
     {
-        Debug.Log("Try Get Next Step "  + _storyBlock.gameObject.name);
         if (_steps.Count != 0)
         {
-            Debug.Log("Get Next Step "  + _storyBlock.gameObject.name);
-            _currentStep?.FinishStep();
+            //Debug.Log("Get Next Step 2 "  + _storyBlock.gameObject.name);
+            _currentStep?.CloseStep();
             step = _steps.Dequeue();
             _currentStep = step;
             return true;
@@ -74,7 +72,7 @@ public class LinearStepsService : IService
 
     private void StepsEnd()
     {
-        Debug.Log("StepsEnd "  + _storyBlock.gameObject.name );
+        //Debug.Log("StepsEnd "  + _storyBlock.gameObject.name );
         _storyBlock.FinishBlock();
     }
 }

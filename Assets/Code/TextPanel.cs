@@ -16,7 +16,7 @@ public class TextPanel : MonoBehaviour
     private ITextWritingService _textWritingService;
     
     private string _message;
-    private bool _isTypingText;
+    private bool _isForceCompleted;
     
     private void Awake()
     {
@@ -26,27 +26,35 @@ public class TextPanel : MonoBehaviour
     public void ShowPanel(string message, ITextWritingService textWritingService)
     {
         _text.text = String.Empty;
-            _isTypingText = false;
+            _isForceCompleted = false;
         _textWritingService = textWritingService;
         _message = message;
-        _showing = _canvasGroup.DOFade(1, 1).OnComplete(StartTyping);
+
+        if (_canvasGroup.alpha < 1)
+        {
+            _showing = _canvasGroup.DOFade(1, 1).OnComplete(StartTyping);
+        }
+        else
+        {
+            StartTyping();
+        }
     }
 
     public void ForceComplete()
     {
-        _showing.Kill();
-        _canvasGroup.alpha = 1;
-        _isTypingText = false;
+        
+        if(!_isForceCompleted)
+        { 
+            _isForceCompleted = true;
+        
+            _showing.Kill();
+            _canvasGroup.alpha = 1;
 
-        if (_isTypingText)
-        {
-            _textWritingService.SkipTyping();
-        }
-        else
-        {
             _textWritingService.ShowText(_message, _text);
-            OnPanelDone.Invoke();
         }
+        
+        OnPanelDone.Invoke();
+        
     }
 
     public void HidePanel()
@@ -56,7 +64,6 @@ public class TextPanel : MonoBehaviour
 
     private void StartTyping()
     {
-        _isTypingText = true;
         _textWritingService.TypeText(_message, _text, OnPanelDone);
     }
 }

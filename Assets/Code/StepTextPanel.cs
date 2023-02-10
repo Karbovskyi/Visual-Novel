@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 public class StepTextPanel : MonoBehaviour, IStep
@@ -7,14 +8,32 @@ public class StepTextPanel : MonoBehaviour, IStep
     [TextArea(3,10)]
     [SerializeField] private string _message;
     [SerializeField] private TextPanel _textPanel;
+<<<<<<< HEAD
     [SerializeField] private bool _hideOnComplete;
+=======
+<<<<<<< Updated upstream
+=======
+    [SerializeField] private bool _hideOnComplete;
+    [SerializeField] private bool _autoNextStep;
+     private bool _isDone;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+>>>>>>> feature/valerii
 
     private ITextWritingService _textService;
-    private bool _isFinished;
+    private bool _isClosed;
     private bool _isCompleted;
     
-    public void StartStep()
+    private Action _onComplete;
+    private LinearStepsService _linearStepsService;
+    
+    public void StartStep(LinearStepsService linearStepsService)
     {
+        _linearStepsService = linearStepsService;
+        _onComplete += _linearStepsService.NextStep;
+        
         _textService = AllServices.Container.Single<ITextWritingService>();
         _textPanel.ShowPanel(_message, _textService);
         _textPanel.OnPanelDone += CompleteStep;
@@ -22,8 +41,17 @@ public class StepTextPanel : MonoBehaviour, IStep
 
     private void CompleteStep()
     {
+        Debug.Log("000 ");
         _isCompleted = true;
         _textPanel.OnPanelDone -= CompleteStep;
+
+        if (_autoNextStep || _isDone)
+        {
+            _onComplete.Invoke();
+            _onComplete -= _linearStepsService.NextStep;
+        }
+        
+        _isDone = true;
     }
     
     public void ForceComplete()
@@ -31,16 +59,29 @@ public class StepTextPanel : MonoBehaviour, IStep
         if (_isCanBeForceCompleted)
         {
             _textPanel.ForceComplete();
-            _isCompleted = true;
         }
     }
 
-    public void FinishStep()
+    public void CloseStep()
     {
+<<<<<<< HEAD
         if(_hideOnComplete)
             _textPanel.HidePanel();
         
+=======
+<<<<<<< Updated upstream
+        _textPanel.HidePanel();
+>>>>>>> feature/valerii
         _isFinished = true;
+=======
+        if(_hideOnComplete)
+            _textPanel.HidePanel();
+        
+        _isClosed = true;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     }
     
     public bool IsCompleted()
