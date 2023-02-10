@@ -5,9 +5,10 @@ using DG.Tweening.Plugins.Options;
 using TMPro;
 using UnityEngine;
 
+public delegate void SomeMethod();
+
 public class TextPanel : MonoBehaviour
 {
-    public Action OnPanelDone;
 
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private TMP_Text _text;
@@ -18,14 +19,16 @@ public class TextPanel : MonoBehaviour
     private string _message;
     private bool _isForceCompleted;
     private bool _continueTyping;
+    private SomeMethod _onPanelDoneCallback;
 
     private void Awake()
     {
         _canvasGroup.alpha = 0;
     }
 
-    public void ShowPanel(string message, ITextWritingService textWritingService, bool continueTyping)
+    public void ShowPanel(string message, ITextWritingService textWritingService, bool continueTyping, SomeMethod onPanelDoneCallback)
     {
+        _onPanelDoneCallback = onPanelDoneCallback;
         _continueTyping = continueTyping;
         _text.text = String.Empty;
             _isForceCompleted = false;
@@ -55,8 +58,7 @@ public class TextPanel : MonoBehaviour
             _textWritingService.ShowText(_message, _text);
         }
         
-        OnPanelDone.Invoke();
-        
+        _onPanelDoneCallback();
     }
 
     public void HidePanel()
@@ -66,6 +68,7 @@ public class TextPanel : MonoBehaviour
 
     private void StartTyping()
     {
-        _textWritingService.TypeText(_message, _text, OnPanelDone,_continueTyping);
+        _textWritingService.TypeText(_message, _text, _onPanelDoneCallback,_continueTyping);
     }
+    
 }

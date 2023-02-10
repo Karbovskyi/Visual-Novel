@@ -2,6 +2,8 @@
 using TMPro;
 using UnityEngine;
 
+
+
 public class StepTextPanel : MonoBehaviour, IStep
 {
     [SerializeField] private bool _isCanBeForceCompleted;
@@ -25,19 +27,18 @@ public class StepTextPanel : MonoBehaviour, IStep
     
     public void StartStep(LinearStepsService linearStepsService)
     {
+        Debug.Log("Start  " + gameObject.name);
         _linearStepsService = linearStepsService;
         _onComplete += _linearStepsService.NextStep;
         
         _textService = AllServices.Container.Single<ITextWritingService>();
-        _textPanel.ShowPanel(_message, _textService,_continueTyping);
-        _textPanel.OnPanelDone += CompleteStep;
+        _textPanel.ShowPanel(_message, _textService,_continueTyping, CompleteStep);
     }
 
     private void CompleteStep()
     {
-        Debug.Log("000 ");
+        Debug.Log("Complete  " + gameObject.name);
         _isCompleted = true;
-        _textPanel.OnPanelDone -= CompleteStep;
 
         if (_autoNextStep || _isDone)
         {

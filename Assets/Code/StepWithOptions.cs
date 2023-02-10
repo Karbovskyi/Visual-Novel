@@ -19,13 +19,11 @@ public class StepWithOptions : MonoBehaviour, IStep
     public void StartStep(LinearStepsService linearStepsService)
     {
         _textService = AllServices.Container.Single<ITextWritingService>();
-        _textPanel.ShowPanel(_message, _textService,_continueTyping);
-        _textPanel.OnPanelDone += ShowVariants;
+        _textPanel.ShowPanel(_message, _textService,_continueTyping, ShowVariants);
     }
 
     private void ShowVariants()
     {
-        _textPanel.OnPanelDone -= ShowVariants;
 
         foreach (var button in _variantButtons)
         {

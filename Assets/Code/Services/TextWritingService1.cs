@@ -8,7 +8,7 @@ public class TextWritingService1 : ITextWritingService
     private readonly MonoBehaviour _coroutineRunner;
     public State TypingState = State.Completed;
     private bool _isNeedSkipWriting;
-    private Action _onComplete;
+    private SomeMethod _onComplete;
     private Coroutine _typingCoroutine;
     
     
@@ -19,10 +19,10 @@ public class TextWritingService1 : ITextWritingService
     public TextWritingService1(MonoBehaviour coroutineRunner) => 
         _coroutineRunner = coroutineRunner;
 
-    public void TypeText(string message, TMP_Text text, bool appendText = false)
-    {
-        StartTyping(message, text, appendText);
-    }
+   // public void TypeText(string message, TMP_Text text, bool appendText = false)
+    //{
+   //     StartTyping(message, text, appendText);
+   // }
 
     public void ShowText(string message, TMP_Text text, bool appendText = false)
     {
@@ -45,7 +45,7 @@ public class TextWritingService1 : ITextWritingService
         
     }
 
-    public void TypeText(string message, TMP_Text text, Action onComplete, bool appendText = false)
+    public void TypeText(string message, TMP_Text text, SomeMethod onComplete, bool appendText = false)
     {
         _onComplete = onComplete;
         StartTyping(message, text, appendText);
@@ -63,15 +63,16 @@ public class TextWritingService1 : ITextWritingService
         _typingCoroutine = _coroutineRunner.StartCoroutine(WriteText());
     }
 
-    public void SkipTyping()
+    /*public void SkipTyping()
     {
         if(TypingState == State.Completed) return;
 
         TypingState = State.Completed;
         _text.text += _message.Substring(_wordIndex);
         _coroutineRunner.StopCoroutine(_typingCoroutine);
+        Debug.Log("Skip writing ");
         _onComplete.Invoke();
-    }
+    }*/
 
     private IEnumerator WriteText()
     {
@@ -88,7 +89,8 @@ public class TextWritingService1 : ITextWritingService
             CheckMessageEnd();
         }
         
-        _onComplete?.Invoke();
+        Debug.Log("Complete writing ");
+        _onComplete();
     }
 
     private void CheckMessageEnd()

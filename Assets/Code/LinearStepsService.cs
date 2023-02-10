@@ -44,7 +44,7 @@ public class LinearStepsService : IService
     {
         if (TryGetNextStep(out IStep step))
         {
-            Debug.Log("Start Next Step 1 "  + _storyBlock.gameObject.name );
+            //Debug.Log("Start Next Step 1 "  + _storyBlock.gameObject.name );
             step.StartStep(this);
         }
         else
