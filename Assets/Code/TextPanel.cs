@@ -35,6 +35,11 @@ public class TextPanel : MonoBehaviour
         _textWritingService = textWritingService;
         _message = message;
 
+        if (!_continueTyping)
+        {
+            _text.text = String.Empty;
+        }
+
         if (_canvasGroup.alpha < 1)
         {
             _showing = _canvasGroup.DOFade(1, 1).OnComplete(StartTyping);

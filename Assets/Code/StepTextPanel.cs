@@ -27,6 +27,7 @@ public class StepTextPanel : MonoBehaviour, IStep
     
     public void StartStep(LinearStepsService linearStepsService)
     {
+
         Debug.Log("Start  " + gameObject.name);
         _linearStepsService = linearStepsService;
         _onComplete += _linearStepsService.NextStep;

@@ -9,6 +9,7 @@ public class StoryBlock : MonoBehaviour
 
     public void StartBlock()
     {
+        gameObject.SetActive(true);
         IStep[] x = GetComponentsInChildren<IStep>();
         _linearStepsService = AllServices.Container.Single<LinearStepsService>();
         _linearStepsService.SetSteps(this ,x);
@@ -21,8 +22,8 @@ public class StoryBlock : MonoBehaviour
 
     public void FinishBlock()
     {
-        
-        StoryBlock newBlock = Instantiate(nextBlocks[_nextBlockIndex]);
+        //StoryBlock newBlock = Instantiate(nextBlocks[_nextBlockIndex]);
+        StoryBlock newBlock = nextBlocks[_nextBlockIndex];
         Debug.Log("Start New Block " + newBlock.gameObject.name);
         newBlock.StartBlock();
     }
