@@ -31,12 +31,6 @@ public class TextPanel : MonoBehaviour
         Debug.Log("ShowPanel");
         _onPanelDoneCallback = onPanelDoneCallback;
         _continueTyping = continueTyping;
-        
-        if (!_continueTyping)
-        {
-            _text.text = String.Empty;
-        }
-
         _isForceCompleted = false;
         _textWritingService = textWritingService;
         _message = message;

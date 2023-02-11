@@ -15,16 +15,17 @@ public class IntroFinishActions : MonoBehaviour
         _examinerSize = new Vector3(0.95f, 0.95f, 0.95f);
     }
 
-    public void ExaminerFirstMove()
+    public void ExaminerFirstMove(StepFinishCallback s)
     {
-        _examiner.DOLocalMove(_examinerPosition, 2).SetEase(Ease.InOutSine);
-        _examiner.DOScale(_examinerSize, 2).SetEase(Ease.InOutSine);
+        _examiner.DOLocalMove(new Vector3(194, -510, 0), 2).SetEase(Ease.InOutSine);
+        _examiner.DOScale(new Vector3(0.95f, 0.95f, 0.95f), 2).SetEase(Ease.InOutSine);
+        s.Invoke();
     }
 
-    public void Jump()
+    public void Jump(StepFinishCallback s)
     {
         _examiner.DOScale(Vector3.zero, 1).SetEase(Ease.InBounce);
         _mainCharacter.DOScale(Vector3.zero, 1).SetEase(Ease.InBounce);
-
+        s.Invoke();
     }
 }

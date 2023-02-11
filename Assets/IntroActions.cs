@@ -35,5 +35,6 @@ public class IntroActions : MonoBehaviour
     public void PlayCoughSound(StepFinishCallback s)
     {
         _audioService.PlayAudio(_cough);
+        s.Invoke();
     }
 }

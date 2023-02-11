@@ -39,6 +39,7 @@ public class StepTextPanel : MonoBehaviour, IStep
     {
         Debug.Log("Complete  " + gameObject.name);
         _isCompleted = true;
+        _isCanBeForceCompleted = true;
 
         if (_autoNextStep || _isDone)
         {

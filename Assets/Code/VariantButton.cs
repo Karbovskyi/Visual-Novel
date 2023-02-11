@@ -20,12 +20,12 @@ namespace Assets.Code
         private void Start()
         {
             _canvasGroup.alpha = 0;
-            _button.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
         }
         public void Show(ITextWritingService textWritingService)
         {
-            _button.interactable = true;
             _textWritingService = textWritingService;
+            _canvasGroup.blocksRaycasts = true;
         
             _showing =  _canvasGroup.DOFade(1, 1).OnComplete((() =>
             {
@@ -36,6 +36,7 @@ namespace Assets.Code
         public void Hide()
         {
             _canvasGroup.DOFade(0, 1);
+            _canvasGroup.blocksRaycasts = false;
         }
     }
 }
