@@ -28,10 +28,16 @@ public class TextPanel : MonoBehaviour
 
     public void ShowPanel(string message, ITextWritingService textWritingService, bool continueTyping, SomeMethod onPanelDoneCallback)
     {
+        Debug.Log("ShowPanel");
         _onPanelDoneCallback = onPanelDoneCallback;
         _continueTyping = continueTyping;
-        _text.text = String.Empty;
-            _isForceCompleted = false;
+        
+        if (!_continueTyping)
+        {
+            _text.text = String.Empty;
+        }
+
+        _isForceCompleted = false;
         _textWritingService = textWritingService;
         _message = message;
 
