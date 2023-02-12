@@ -15,12 +15,15 @@ public class IntroActions : MonoBehaviour
     [SerializeField] private Transform _panelExaminer3Lines;
     [SerializeField] private Transform _mainCharacter;
     [SerializeField] private Transform _panelMainCharacter3Lines;
+    [SerializeField] private TextPanel _panelExaminator5Lines;
     [SerializeField] private Transform _panelStory;
     [SerializeField] private Transform _walkingGirl;
     [SerializeField] private Transform _car;
+    [SerializeField] private Transform _hero2;
     
     [SerializeField] private Image _introBack;
     [SerializeField] private CanvasGroup _streetBack;
+    [SerializeField] private CanvasGroup _dahBack;
 
     [SerializeField] private Image traficLightRed;
     [SerializeField] private Image traficLightGreen;
@@ -136,5 +139,27 @@ public class IntroActions : MonoBehaviour
     public void TurnCentr(StepFinishCallback s)
     {
         _streetEnvironment.DOLocalMove(new Vector3(0, 0, 0), _cycleLength).OnComplete(s.Invoke);
+    }
+
+    public void StreetTurnLeftStoryBlockClose()
+    {
+        _panelExaminator5Lines.HidePanel();
+    }
+
+    public void HeroJumpToDah(StepFinishCallback s)
+    {
+        PlayPlasmaSound(s);
+        _hero2.DOScale(Vector3.zero, 1).SetEase(Ease.InBounce)
+            .OnComplete(( )=>
+            {
+                _hero2.transform.parent = _dahBack.transform;
+                _streetBack.DOFade(0, 1).OnComplete(() =>
+                {
+                    _dahBack.DOFade(1, 1).OnComplete(() =>
+                    {
+                        _hero2.DOScale(new Vector3(1.9281f, 1.9281f, 1), 1).SetEase(Ease.InBounce).OnComplete(s.Invoke);
+                    });
+                });
+            });
     }
 }
