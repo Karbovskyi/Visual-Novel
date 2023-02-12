@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Cascadia Code PL Bold 700
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -644052196
   material: {fileID: 6602189938591748549}
-  materialHashCode: 0
+  materialHashCode: 1146647612
   m_Version: 1.1.0
   m_SourceFontFileGUID: 3211c953fc097a24da295b60880afa03
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 3211c953fc097a24da295b60880afa03, type: 3}
