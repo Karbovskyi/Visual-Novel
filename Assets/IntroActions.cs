@@ -29,6 +29,7 @@ public class IntroActions : MonoBehaviour
     [SerializeField] private CanvasGroup _streetBack;
     [SerializeField] private CanvasGroup _dahBack;
     [SerializeField] private CanvasGroup _fountainBack;
+    [SerializeField] private CanvasGroup _caffeBack;
     
 
     [SerializeField] private Image traficLightRed;
@@ -188,9 +189,9 @@ public class IntroActions : MonoBehaviour
 
     public void HideFontainAndShowCafe(StepFinishCallback s)
     {
-        _streetBack.DOFade(0, 1).OnComplete(() =>
+        _fountainBack.DOFade(0, 1).OnComplete(() =>
         {
-            _streetBack.DOFade(1, 1).OnComplete(s.Invoke);
+            _caffeBack.DOFade(1, 1).OnComplete(s.Invoke);
         });
     }
     
@@ -216,13 +217,14 @@ public class IntroActions : MonoBehaviour
 
     public void HomeleesGoOutCafe(StepFinishCallback s)
     {
+        DoorBell(s);
         _homeleesCafe.eulerAngles=Vector3.zero;
-        _homeleesCafe.DOLocalMove(new Vector3(1182, -127, 0), 1).OnComplete(s.Invoke);
+        _homeleesCafe.DOLocalMove(new Vector3(1182, -127, 0), 1);
     }
 
     public void ShowCups(StepFinishCallback s)
     {
-        _righCup.DOFade(1, 1).OnComplete(s.Invoke);
+        _righCup.DOFade(1, 1);
         _leftCup.DOFade(1, 1).OnComplete(s.Invoke);
     }
 
@@ -235,4 +237,10 @@ public class IntroActions : MonoBehaviour
     {
         _righCup.DOFade(0, 1).OnComplete(s.Invoke);
     }
+    
+    public void ExitApplication(StepFinishCallback s)
+    {
+        Application.Quit();
+    }
+    
 }
