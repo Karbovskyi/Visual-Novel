@@ -28,6 +28,8 @@ public class IntroActions : MonoBehaviour
     [SerializeField] private Image _introBack;
     [SerializeField] private CanvasGroup _streetBack;
     [SerializeField] private CanvasGroup _dahBack;
+    [SerializeField] private CanvasGroup _fountainBack;
+    
 
     [SerializeField] private Image traficLightRed;
     [SerializeField] private Image traficLightGreen;
@@ -162,6 +164,23 @@ public class IntroActions : MonoBehaviour
                     _dahBack.DOFade(1, 1).OnComplete(() =>
                     {
                         _hero2.DOScale(new Vector3(1.9281f, 1.9281f, 1), 1).SetEase(Ease.InBounce).OnComplete(s.Invoke);
+                    });
+                });
+            });
+        
+    }public void HeroJumpToFountain(StepFinishCallback s)
+    {
+        PlayPlasmaSound(s);
+        _hero2.DOScale(Vector3.zero, 1).SetEase(Ease.InBounce)
+            .OnComplete(( )=>
+            {
+                _hero2.transform.parent = _fountainBack.transform;
+                _dahBack.DOFade(0, 1).OnComplete(() =>
+                {
+                    _fountainBack.DOFade(1, 1).OnComplete(() =>
+                    {
+                        _hero2.DOScale(new Vector3(1.9281f, 1.9281f, 1), 1).SetEase(Ease.InBounce);
+                        _hero2.DOLocalMove(new Vector3(18.9f,-521f,0f), 1).OnComplete(s.Invoke);
                     });
                 });
             });
