@@ -8,6 +8,7 @@ public class IntroActions : MonoBehaviour
 {
     [SerializeField] private AudioService _audioService;
     [SerializeField] private AudioClip _plasma;
+    [SerializeField] private AudioClip _doorBell;
     [SerializeField] private AudioClip _cough;
     [SerializeField] private AudioClip _walking;
     [SerializeField] private AudioClip _carAccident;
@@ -20,6 +21,9 @@ public class IntroActions : MonoBehaviour
     [SerializeField] private Transform _walkingGirl;
     [SerializeField] private Transform _car;
     [SerializeField] private Transform _hero2;
+    [SerializeField] private Transform _homeleesCafe;
+    [SerializeField] private Image _leftCup;
+    [SerializeField] private Image _righCup;
     
     [SerializeField] private Image _introBack;
     [SerializeField] private CanvasGroup _streetBack;
@@ -161,5 +165,55 @@ public class IntroActions : MonoBehaviour
                     });
                 });
             });
+    }
+
+    public void HideFontainAndShowCafe(StepFinishCallback s)
+    {
+        _streetBack.DOFade(0, 1).OnComplete(() =>
+        {
+            _streetBack.DOFade(1, 1).OnComplete(s.Invoke);
+        });
+    }
+    
+    public void HideCafeAndShowFontain2(StepFinishCallback s)
+    {
+        _streetBack.DOFade(0, 1).OnComplete(() =>
+        {
+            _streetBack.DOFade(1, 1).OnComplete(s.Invoke);
+        });
+    }
+
+    public void DoorBell(StepFinishCallback s)
+    {
+        _audioService.PlayAudio(_doorBell);
+    }
+
+
+    public void HomeleesGoIntoCafe(StepFinishCallback s)
+    {
+        DoorBell(s);
+        _homeleesCafe.DOLocalMove(new Vector3(784, -127, 0), 1).OnComplete(s.Invoke);
+    }
+
+    public void HomeleesGoOutCafe(StepFinishCallback s)
+    {
+        _homeleesCafe.eulerAngles=Vector3.zero;
+        _homeleesCafe.DOLocalMove(new Vector3(1182, -127, 0), 1).OnComplete(s.Invoke);
+    }
+
+    public void ShowCups(StepFinishCallback s)
+    {
+        _righCup.DOFade(1, 1).OnComplete(s.Invoke);
+        _leftCup.DOFade(1, 1).OnComplete(s.Invoke);
+    }
+
+    public void HideLeftCup(StepFinishCallback s)
+    {
+        _leftCup.DOFade(0, 1).OnComplete(s.Invoke);
+    }
+
+    public void HideRightCup(StepFinishCallback s)
+    {
+        _righCup.DOFade(0, 1).OnComplete(s.Invoke);
     }
 }
